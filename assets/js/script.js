@@ -12,6 +12,14 @@ var prayerTimesEl = $("#prayer-times");
 var index = dayOfMonth - 1;
 var prayerArr = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
+
+var athan = new Audio("assets/audio/Athan_Egypt.mp3");
+
+$("#play-athan").on("click", function(){
+    console.log("test")
+    athan.play()
+})
+
 fetch(athanTimesURL)
     .then(function (res) {
         return res.json()
