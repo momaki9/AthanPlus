@@ -5,7 +5,7 @@ var athanTimesURL = "http://api.aladhan.com/v1/calendarByCity/2024/3?city=cerrit
 
 var gregorianDate = $("#gregorian");
 var hijriDateEl = $("#hijri-date");
-var today = moment().format("MMMM, Do YYYY");
+var today = moment().format("dddd MMMM, Do YYYY");
 var currentTime = moment().format("h:mm A");
 var dayOfMonth = moment().format("D");
 var prayerTimesEl = $("#prayer-times");
@@ -22,11 +22,11 @@ $("#test-btn").on("click", function () {
     $("#myModal").modal("show");
 });
 
-$("#play-athan").on("click", function(){
+$("#play-athan").on("click", function () {
     myAudioEl.play();
 });
 
-$("#dismiss-btn").on("click", function(){
+$("#dismiss-btn").on("click", function () {
     myAudioEl.pause()
 });
 
@@ -60,16 +60,32 @@ fetch(athanTimesURL)
         $("#list-3").text(`${prayerArr[3]}: ${maghribTime}`);
         $("#list-4").text(`${prayerArr[4]}: ${ishaTime}`);
 
-        callAthan(fajrTime);
-        callAthan(dhuhrTime);
-        callAthan(asrTime);
-        callAthan(maghribTime);
-        callAthan(ishaTime);
-
-    })
+        var timeTillFajr = calculateDuration(fajrTime);
+        var timeTillDhur = calculateDuration(dhuhrTime);
+        var timeTillAsr = calculateDuration(asrTime);
+        var timeTillMaghrib = calculateDuration(maghribTime);
+        var timeTillIsha = calculateDuration(ishaTime);
+        callAthan(fajrTime, timeTillFajr);
+        callAthan(dhuhrTime, timeTillDhur);
+        callAthan(asrTime, timeTillAsr);
+        callAthan(maghribTime, timeTillMaghrib);
+        callAthan(ishaTime, timeTillIsha);
+    });
 
 
 gregorianDate.text(today);
+
+function displayCurrentTime() {
+
+    setInterval(function () {
+        var accurateTime = moment().format("h:mm:ss A");
+        $("#current-time").text(accurateTime)
+        // console.log("hello")
+    }, 1000);
+
+};
+
+displayCurrentTime();
 
 function formatTime(time) {
     var militaryTime = time.split(" ")[0];
@@ -77,13 +93,25 @@ function formatTime(time) {
     return formatted;
 };
 
-function callAthan(time) {
-    var givenTime = moment(time, "h:mm A").format("h:mm");
-    currentTime = moment(currentTime, "h:mm A").format("h:mm");
-
-    if (givenTime === currentTime) {
-        $("#myModal").modal("show");
+function callAthan(time, interval) {
+    var duration = calculateDuration(time)
+    if (duration < 0) {
+        console.log("Prayer time has passed for the prayer that called this function")
+        return;
+    } else {
+        console.log("A prayer is coming up")
+        setTimeout(function () {
+            $("#myModal").modal("show");
+        }, interval);
     }
 };
 
-// callAthan("6:36 PM");
+// console.log(calculateDuration("12:03 PM"));
+
+function calculateDuration(time) {
+    var givenTime = moment(time, "h:mm A");
+    var timeNow = moment(currentTime, "h:mm A");
+    var duration = moment.duration(givenTime.diff(timeNow));
+    var timeInmSec = duration._milliseconds;
+    return timeInmSec;
+};
