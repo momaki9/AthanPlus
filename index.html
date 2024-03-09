@@ -12,7 +12,10 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand">AthanPlus</a>
+        <a class="navbar-brand">
+            <img src="./assets/imgs/mosque.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy" />
+            AthanPlus
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,7 +38,27 @@
             </ul>
         </div>
     </nav>
-    <button id="play-athan">Play</button>
+    <button id="test-btn">Open Athan Modal</button>
+    
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Prayer Time</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <audio controls src="./assets/audio/Athan_Egypt.mp3" controlslist="nodownload" id="my-audio"></audio>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="dismiss-btn">Dismiss</button>
+                    <button type="button" class="btn btn-primary" id="play-athan">Play Athan</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <h2 id="gregorian"></h2>
     <h2 id="hijri-date"></h2>
     <h2>Prayer times for today:</h2>
@@ -54,7 +77,6 @@
         <br />
         <h1>Dev Notes</h1>
         <ul>
-            <li>Display prayer times in standard time</li>
             <li>Search bar for city/location</li>
             <li>Pick an icon</li>
             <li>Set up audio playing</li>
@@ -66,7 +88,7 @@
             <li>Convert to app?</li>
         </ul>
     </ul>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -74,8 +96,7 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    
     <script src="./assets/js/script.js"></script>
 </body>
 
