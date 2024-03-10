@@ -1,7 +1,5 @@
-// http://api.quran-tafseer.com/quran/{sura_number}/{ayah_number}
-var quranTafseerURL = "http://api.quran-tafseer.com/quran/1/2";
 //http://api.aladhan.com/v1/calendarByCity/:year/:month?city={city}&country={country}&method={method}
-var athanTimesURL = "http://api.aladhan.com/v1/calendarByCity/2024/3?city=cerritos&country=United%20states&method=2";
+var athanTimesURL = "http://api.aladhan.com/v1/calendarByCity/2024/3?city=norwalk&country=United%20states&method=2";
 
 var gregorianDate = $("#gregorian");
 var hijriDateEl = $("#hijri-date");
@@ -13,7 +11,7 @@ var prayerTimesEl = $("#prayer-times");
 var index = dayOfMonth - 1;
 var prayerArr = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-var athan = new Audio("assets/audio/Athan_Egypt.mp3");
+// var athan = new Audio("assets/audio/Athan_Egypt.mp3");
 // var myAudioEl = $("#my-audio");
 var myAudioEl = document.getElementById("my-audio");
 
@@ -27,7 +25,7 @@ $("#play-athan").on("click", function () {
 });
 
 $("#dismiss-btn").on("click", function () {
-    myAudioEl.pause()
+    myAudioEl.pause();
 });
 
 fetch(athanTimesURL)
@@ -35,7 +33,7 @@ fetch(athanTimesURL)
         return res.json()
     })
     .then(function (data) {
-
+        console.log(data)
         hijriDateEl.text(`${data.data[index].date.hijri.day} of ${data.data[index].date.hijri.month.en}, ${data.data[index].date.hijri.year}`);
         // var myIndex = index;
         // var indexArr = [];
@@ -43,6 +41,7 @@ fetch(athanTimesURL)
             // indexArr.push(myIndex);
             var listEl = $("<li>");
             listEl.attr("id", `list-${j}`);
+            listEl.attr("class", "col-2 text-light bg-dark")
             prayerTimesEl.append(listEl);
             // myIndex++;
         };
@@ -79,7 +78,7 @@ function displayCurrentTime() {
 
     setInterval(function () {
         var accurateTime = moment().format("h:mm:ss A");
-        $("#current-time").text(accurateTime)
+        $("#current-time").text(`Current time: ${accurateTime}`);
         // console.log("hello")
     }, 1000);
 
@@ -96,12 +95,13 @@ function formatTime(time) {
 function callAthan(time, interval) {
     var duration = calculateDuration(time)
     if (duration < 0) {
-        console.log("Prayer time has passed for the prayer that called this function")
+        console.log("A Prayer time has passed thus far")
         return;
     } else {
         console.log("A prayer is coming up")
         setTimeout(function () {
             $("#myModal").modal("show");
+            myAudioEl.play();
         }, interval);
     }
 };
@@ -115,3 +115,11 @@ function calculateDuration(time) {
     var timeInmSec = duration._milliseconds;
     return timeInmSec;
 };
+
+$("#update-settings").on("click", function(){
+    var cityInput = $("#city-input").val().trim();
+    var methodSelected = $("#method-select option:selected").val();
+    console.log(cityInput)
+    console.log(methodSelected)
+    $("#settingsModal").modal("hide");
+})
