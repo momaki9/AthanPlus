@@ -7,3 +7,20 @@ ul li {
     padding: 1%;
     margin: 1%;
 }
+
+
+#foot-notes,
+#verse-tafseer {
+    padding: 6px;
+}
+
+
+
+#verse-arabic {
+    text-align: center;
+    font-family: "Noto Naskh Arabic", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+}

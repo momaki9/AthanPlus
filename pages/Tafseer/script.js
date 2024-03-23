@@ -1,11 +1,4 @@
-// http://api.quran-tafseer.com/quran/{sura_number}/{ayah_number}
-// https://api.quran.com/api/v4/quran/translations/131
-var quranTafseerURL = "http://api.quran-tafseer.com/quran/1/2";
-var url = "http://api.quran-tafseer.com/quran/1/1"
-
-// tafseer id = 169 for Ibn Kathir
-// translation id = 131 for Dr. Mustafa Khattab
-
+// Quran Surahs data
 var quranObj = [
     {
         surah: 1,
@@ -579,14 +572,32 @@ var quranObj = [
     }
 ];
 
-fetch(url)
-    .then(function (res) {
-        return res.json()
-    })
-    .then(function (data) {
-        console.log(data)
+// http://api.quran-tafseer.com/quran/{sura_number}/{ayah_number}
+// https://api.quran.com/api/v4/quran/translations/131
+var quranTafseerURL = "http://api.quran-tafseer.com/quran/1/2";
+var url = "http://api.quran-tafseer.com/quran/1/1"
 
-    });
+// tafseer id = 169 for Ibn Kathir
+// translation id = 131 for Dr. Mustafa Khattab
+
+var getVerse = function (chapter, verse) {
+    //http://api.quran-tafseer.com/tafseer/1/1/1
+    // https://quranenc.com/api/v1/translation/aya/{translation_key}/{sura_number}/{aya_number}
+    // https://quranenc.com/api/v1/translation/sura/english_saheeh/1
+    var quranUrl = `http://api.quran-tafseer.com/quran/${chapter}/${verse}`;
+    // var surahUrl = `https://quranenc.com/api/v1/translation/sura/english_saheeh/1`
+    var tafseerUrl = `https://quranenc.com/api/v1/translation/aya/english_saheeh/${chapter}/${verse}`;
+    fetch(tafseerUrl)
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (data) {
+            console.log(data)
+            $("#verse-arabic").text(data.result.arabic_text);
+            $("#verse-tafseer").text(data.result.translation);
+            $("#foot-notes").text(data.result.footnotes);
+        });
+};
 
 var chapterArray = [];
 var verseArray = [];
@@ -597,19 +608,17 @@ var setQuranDetail = function () {
         var verseNum = quranObj[i].verses;
         chapterArray.push(chapter);
         verseArray.push(verseNum);
-        $('#chapter-select').append(`<option value="${chapter}">${chapter}</option>`)
+        $('#chapter-select').append(`<option value="${chapter}">${chapter}-${quranObj[i].name}</option>`);
     }
 }
 setQuranDetail();
-// console.log(chapterArray)
-// console.log(verseArray)
 
-
+$("#aya-select").attr("disabled", true);
 
 // dynamic chapter and verse select    
 $('#chapter-select').on('change', function () {
+    $("#aya-select").attr("disabled", false);
     $('#aya-select').html('');
-
     for (var j = 0; j < chapterArray.length; j++) {
         if ($('#chapter-select').val() == chapterArray[j]) {
             for (var i = 1; i < verseArray[j] + 1; i++) {
@@ -617,192 +626,14 @@ $('#chapter-select').on('change', function () {
             }
         }
     }
-    // if ($('#chapter-select').val() == 1) {
-    //     for (var i = 1; i < 8; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // } else if ($('#chapter-select').val() == 2) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 3) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 4) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 5) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 6) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 7) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 8) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 9) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 10) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 11) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 12) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 13) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 14) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 15) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 16) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 17) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 18) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 19) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 20) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 21) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // } 
-    // else if ($('#chapter-select').val() == 2) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 3) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 4) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 5) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 6) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 7) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 8) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 9) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 10) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 11) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 12) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 13) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 14) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 15) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 16) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 17) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 18) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 19) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 20) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 21) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // } 
-    // // 
-    // else if ($('#chapter-select').val() == 110) {
-    //     for (var i = 1; i < 4; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // } else if ($('#chapter-select').val() == 111) {
-    //     for (var i = 1; i < 6; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // } else if ($('#chapter-select').val() == 112) {
-    //     for (var i = 1; i < 5; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 113) {
-    //     for (var i = 1; i < 6; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }else if ($('#chapter-select').val() == 114) {
-    //     for (var i = 1; i < 7; i++) {
-    //         $('#aya-select').append(`<option value="${i}">${i}</option>`);
-    //     }
-    // }
+    if ($('#chapter-select').val() == 0) {
+        $("#aya-select").attr("disabled", true);
+    }
 });
+
+$("#showBtn").on('click', function () {
+    var selectedChapter = $('#chapter-select').find(":selected").val();
+    var selectedAyah = $('#aya-select').find(":selected").val();
+    console.log(selectedChapter, selectedAyah)
+    getVerse(selectedChapter, selectedAyah)
+})
