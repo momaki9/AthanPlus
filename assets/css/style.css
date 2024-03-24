@@ -16,11 +16,28 @@ ul li {
 
 
 
-#verse-arabic {
+#verse-arabic,
+.arabic {
     text-align: center;
     font-family: "Noto Naskh Arabic", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     font-size: 40px;
+}
+
+.ayah {
+    padding: 0.8em;
+    display: inline-block;
+    position: relative;
+}
+
+.ayah::after {
+    content: "\06DD";
+    display: block;
+    position: absolute;
+    font-size: 1.4em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
