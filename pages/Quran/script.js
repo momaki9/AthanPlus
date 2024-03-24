@@ -7,7 +7,6 @@ var showSurah = function (sura) {
             return res.json()
         })
         .then(function (data) {
-            console.log(data)
             if (sura != 1) {
                 $("#content").append(`<p class="arabic">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>`); 
             }
@@ -35,5 +34,7 @@ setQuranDetail();
 
 $("#showBtn").on('click', function () {
     var surah = $('#chapter-select').find(":selected").val();
-    showSurah(surah)
+    $("#content").empty();
+    $("#footnotes").empty();
+    showSurah(surah);
 })
