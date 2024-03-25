@@ -4,7 +4,7 @@
 // https://api.hadith.gading.dev/
 
 //http://api.aladhan.com/v1/calendarByCity/:year/:month?city={city}&country={country}&method={method}
-var athanTimesURL = "http://api.aladhan.com/v1/calendarByCity/2024/3?city=norwalk&country=United%20states&method=2";
+var athanTimesURL = "https://api.aladhan.com/v1/calendarByCity/2024/3?city=norwalk&country=United%20states&method=2";
 
 var gregorianDate = $("#gregorian");
 var hijriDateEl = $("#hijri-date");

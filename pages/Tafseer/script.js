@@ -1,7 +1,7 @@
-// http://api.quran-tafseer.com/quran/{sura_number}/{ayah_number}
-// https://api.quran.com/api/v4/quran/translations/131
-var quranTafseerURL = "http://api.quran-tafseer.com/quran/1/2";
-var url = "http://api.quran-tafseer.com/quran/1/1"
+// // http://api.quran-tafseer.com/quran/{sura_number}/{ayah_number}
+// // https://api.quran.com/api/v4/quran/translations/131
+// var quranTafseerURL = "http://api.quran-tafseer.com/quran/1/2";
+// var url = "http://api.quran-tafseer.com/quran/1/1"
 
 // tafseer id = 169 for Ibn Kathir
 // translation id = 131 for Dr. Mustafa Khattab
@@ -10,7 +10,7 @@ var getVerse = function (chapter, verse) {
     //http://api.quran-tafseer.com/tafseer/1/1/1
     // https://quranenc.com/api/v1/translation/aya/{translation_key}/{sura_number}/{aya_number}
     // https://quranenc.com/api/v1/translation/sura/english_saheeh/1
-    var quranUrl = `http://api.quran-tafseer.com/quran/${chapter}/${verse}`;
+    // var quranUrl = `http://api.quran-tafseer.com/quran/${chapter}/${verse}`;
     // var surahUrl = `https://quranenc.com/api/v1/translation/sura/english_saheeh/1`
     var tafseerUrl = `https://quranenc.com/api/v1/translation/aya/english_saheeh/${chapter}/${verse}`;
     fetch(tafseerUrl)
