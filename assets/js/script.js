@@ -42,7 +42,7 @@ fetch(url)
         return res.json()
     })
     .then(function (data) {
-        console.log(data)
+        // console.log(data)
         hijriDateEl.text(`${data.data[index].date.hijri.day} of ${data.data[index].date.hijri.month.en}, ${data.data[index].date.hijri.year}`);
         // var myIndex = index;
         // var indexArr = [];

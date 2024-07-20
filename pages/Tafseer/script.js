@@ -18,7 +18,7 @@ var getVerse = function (chapter, verse) {
             return res.json()
         })
         .then(function (data) {
-            console.log(data)
+            // console.log(data)
             $("#verse-arabic").text(data.result.arabic_text);
             $("#verse-tafseer").text(data.result.translation);
             $("#foot-notes").text(data.result.footnotes);
@@ -60,6 +60,6 @@ $('#chapter-select').on('change', function () {
 $("#showBtn").on('click', function () {
     var selectedChapter = $('#chapter-select').find(":selected").val();
     var selectedAyah = $('#aya-select').find(":selected").val();
-    console.log(selectedChapter, selectedAyah)
+    // console.log(selectedChapter, selectedAyah)
     getVerse(selectedChapter, selectedAyah)
 })
