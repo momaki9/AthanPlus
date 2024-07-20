@@ -12,6 +12,9 @@ var currentTime = moment().format("h:mm A");
 var dayOfMonth = moment().format("D");
 var prayerTimesEl = $("#prayer-times");
 
+var currentMonth = moment().format("M");
+var currentYear = moment().format("YYYY")
+
 var index = dayOfMonth - 1;
 var prayerArr = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
@@ -32,7 +35,7 @@ $("#dismiss-btn").on("click", function () {
     myAudioEl.pause();
 });
 
-var url = "https://api.aladhan.com/v1/calendarByCity/2024/3?city=norwalk&country=United%20states&method=2";
+var url = `https://api.aladhan.com/v1/calendarByCity/${currentYear}/${currentMonth}?city=norwalk&country=United%20states&method=2&adjustment=1`;
 
 fetch(url)
     .then(function (res) {
@@ -101,10 +104,10 @@ function formatTime(time) {
 function callAthan(time, interval) {
     var duration = calculateDuration(time)
     if (duration < 0) {
-        console.log("A Prayer time has passed thus far")
+        // console.log("A Prayer time has passed thus far")
         return;
     } else {
-        console.log("A prayer is coming up")
+        // console.log("A prayer is coming up")
         setTimeout(function () {
             $("#myModal").modal("show");
             myAudioEl.play();
