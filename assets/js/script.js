@@ -128,7 +128,7 @@ function calculateDuration(time) {
 $("#update-settings").on("click", function(){
     var cityInput = $("#city-input").val().trim();
     var methodSelected = $("#method-select option:selected").val();
-    console.log(cityInput)
-    console.log(methodSelected)
+    // console.log(cityInput)
+    // console.log(methodSelected)
     $("#settingsModal").modal("hide");
 })
