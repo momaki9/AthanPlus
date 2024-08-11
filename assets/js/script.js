@@ -3,6 +3,9 @@
 // https://api.hadith.gading.dev/books/bukhari?range=1-150
 // https://api.hadith.gading.dev/
 
+// api_key = $2y$10$K1k3Q9SQcaZ40CGNUx5NOU3nHyoY9lkrRfhsMJIBYKX9XCLwUwi
+// hadith_url = 
+
 //http://api.aladhan.com/v1/calendarByCity/:year/:month?city={city}&country={country}&method={method}
 
 var gregorianDate = $("#gregorian");
@@ -35,7 +38,7 @@ $("#dismiss-btn").on("click", function () {
     myAudioEl.pause();
 });
 
-var url = `https://api.aladhan.com/v1/calendarByCity/${currentYear}/${currentMonth}?city=norwalk&country=United%20states&method=2&adjustment=1`;
+var url = `https://api.aladhan.com/v1/calendarByCity/${currentYear}/${currentMonth}?city=norwalk&country=United%20states&method=2&adjustment=2`;
 
 fetch(url)
     .then(function (res) {
@@ -131,4 +134,14 @@ $("#update-settings").on("click", function(){
     // console.log(cityInput)
     // console.log(methodSelected)
     $("#settingsModal").modal("hide");
+})
+
+const apiUrl = 'https://www.hadithapi.com/api/sahih-bukhari/chapters?apiKey=$2y$10$K1k3Q9SQcaZ40CGNUx5NOU3nHyoY9lkrRfhsMJIBYKX9XCLwUwi';
+fetch(apiUrl)
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+})
+.catch(error => {
+    console.log(error);
 })
